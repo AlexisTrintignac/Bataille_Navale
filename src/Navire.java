@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +10,7 @@ public class Navire {
 	String nom;
 	Coordonne coordonne;
 	Direction direction;
-	HashMap<String,Case> cases;
+	ArrayList<Case> caseList;
 	
 	public Navire(int taille, String nom, Coordonne coordonne, Direction direction) {
 		this.taille = taille;
@@ -24,28 +25,28 @@ public class Navire {
 	
 	public Boolean estDansCase(Case c) {
 		if (this.direction == this.direction.SUD) {
-			if (this.coordonne.x == c.coordonnee.x && (this.coordonne.y >= c.coordonnee.y && this.coordonne.y <= c.coordonnee.y + this.taille-1)) {
+			if (this.coordonne.getY() == c.getCoordonnee().getY() && (this.coordonne.getX() >= c.getCoordonnee().getX() && this.coordonne.getX() <= c.getCoordonnee().getX() + this.taille-1)) {
 				return true;
 			} else {
 				return false;
 			}
 			} else {
 				if (this.direction == this.direction.NORD) {
-					if (this.coordonne.x == c.coordonnee.x && (this.coordonne.y <= c.coordonnee.y && this.coordonne.y >= c.coordonnee.y - this.taille-1)) {
+					if (this.coordonne.getY() == c.getCoordonnee().getY() && (this.coordonne.getX() <= c.getCoordonnee().getX() && this.coordonne.getX() >= c.getCoordonnee().getX() - this.taille-1)) {
 						return true;
 					} else {
 						return false;
 					}
 			} else {
 				if (this.direction == this.direction.OUEST) {
-					if (this.coordonne.y == c.coordonnee.y && (this.coordonne.x >= c.coordonnee.x && this.coordonne.x <= c.coordonnee.x - this.taille-1)) {
+					if (this.coordonne.getX() == c.getCoordonnee().getX() && (this.coordonne.getY() >= c.getCoordonnee().getY() && this.coordonne.getY() <= c.getCoordonnee().getY() - this.taille-1)) {
 						return true;
 					} else {
 						return false;
 					}
 			} else {
 				if (this.direction == this.direction.EST) {
-					if (this.coordonne.y == c.coordonnee.y && (this.coordonne.x <= c.coordonnee.x && this.coordonne.x >= c.coordonnee.x + this.taille-1)) {
+					if (this.coordonne.getX() == c.getCoordonnee().getX() && (this.coordonne.getY() <= c.getCoordonnee().getY() && this.coordonne.getY() >= c.getCoordonnee().getY() + this.taille-1)) {
 						return true;
 					} else {
 						return false;
@@ -59,12 +60,12 @@ public class Navire {
 }
 	
 	public Boolean estCoule() {
-		for(Entry<String, Case> entry : this.cases.entrySet()) {
-		    String cle = entry.getKey();
-		    Case valeur = entry.getValue();
-		    if(valeur.touche == false) {
-		    	return false;
-		    }
+		Iterator<Case> it = this.caseList.iterator();
+		while (it.hasNext()) {
+		       Case s = it.next();
+		       if(s.isTouche()== false) {
+		    	   return false;
+		       }
 		}
 		return true;
 	}

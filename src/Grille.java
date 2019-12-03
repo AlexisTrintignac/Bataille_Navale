@@ -9,6 +9,9 @@ public class Grille {
 	int nb_lignes = 10;
 	int nb_colonnes = 10;
 	
+	// X = abscisse
+	// Y = colonne
+	
 	public Grille() {
 		for (int i=0; i< this.nb_colonnes; i++) {
 			for (int j=0;j<this.nb_lignes; j++) {
@@ -18,7 +21,7 @@ public class Grille {
 	}
 	
 	public String statusCase(Case c){
-		if(c.touche) {
+		if(c.isTouche()) {
 			return("Touche");
 		}else {
 			return("Pas Touche");
@@ -26,26 +29,28 @@ public class Grille {
 	}
 	
 	public void placerBateaux(Navire bateau, Case c) {
+		int getCaseX = c.getCoordonnee().getX();
+		int getCaseY = c.getCoordonnee().getY();
 		switch (bateau.direction) {
 		case NORD :
 			for(int i = 1; i<= bateau.taille; i++) {
-				Case value = this.grille.get(c.coordonnee.x+""+c.coordonnee.y+(-i));
-				bateau.cases.put(c.coordonnee.x+""+c.coordonnee.y+(-i),value);
+				Case value = this.grille.get(getCaseX+(-i)+""+getCaseY);
+				bateau.caseList.add(value);
 			}
 		case SUD :
 			for(int i = 1; i<= bateau.taille; i++) {
-				Case value = this.grille.get(c.coordonnee.x+""+c.coordonnee.y+i);
-				bateau.cases.put(c.coordonnee.x+""+c.coordonnee.y+i,value);
+				Case value = this.grille.get(getCaseX+i+""+getCaseY);
+				bateau.caseList.add(value);
 			}
 		case OUEST :
 			for(int i = 1; i<= bateau.taille; i++) {
-				Case value = this.grille.get(c.coordonnee.x+(-i)+""+c.coordonnee.y);
-				bateau.cases.put(c.coordonnee.x+(-i)+""+c.coordonnee.y,value);
+				Case value = this.grille.get(getCaseX+""+getCaseY+(-i));
+				bateau.caseList.add(value);
 			}
 		case EST :
 			for(int i = 1; i<= bateau.taille; i++) {
-				Case value = this.grille.get(c.coordonnee.x+i+""+c.coordonnee.y+i);
-				bateau.cases.put(c.coordonnee.x+i+""+c.coordonnee.y+i,value);
+				Case value = this.grille.get(getCaseX+""+getCaseY+i);
+				bateau.caseList.add(value);
 			}
 		default:
 			break;
