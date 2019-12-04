@@ -2,10 +2,20 @@
 public class Case {
 	private Coordonne coordonnee;
 	private boolean touche;
+	private boolean utilisee;
 	
 	public Case(Coordonne coordonnee) {
 		this.coordonnee = coordonnee;
 		this.touche = false; 
+		this.utilisee = false;
+	}
+
+	public boolean isUtilisee() {
+		return utilisee;
+	}
+
+	public void setUtilisee(boolean utilisee) {
+		this.utilisee = utilisee;
 	}
 
 	public Coordonne getCoordonnee() {
@@ -18,15 +28,6 @@ public class Case {
 	
 	public void setTouche(boolean touche) {
 		this.touche = touche;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((coordonnee == null) ? 0 : coordonnee.hashCode());
-		result = prime * result + (touche ? 1231 : 1237);
-		return result;
 	}
 
 	@Override

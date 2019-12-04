@@ -6,11 +6,12 @@ import java.util.ListIterator;
 import java.util.Map.Entry;
 
 public class Navire {
-	int taille;
-	String nom;
-	Coordonne coordonne;
-	Direction direction;
-	List<Case> caseList;
+	
+	private int taille;
+	private String nom;
+	private Coordonne coordonne;
+	private Direction direction;
+	private List<Case> caseList;
 	
 	public Navire(int taille, String nom, Coordonne coordonne, Direction direction) {
 		this.taille = taille;
@@ -23,6 +24,7 @@ public class Navire {
 		for(Case currentCase: this.caseList) {
 			if(currentCase.equals(c)) {
 				currentCase.setTouche(true);
+				currentCase.setUtilisee(true);
 			}
 		}
 		if(this.estCoule()) {
@@ -124,5 +126,24 @@ public class Navire {
 		return true;
 	}
 	
+	public int getTaille() {
+		return taille;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public Coordonne getCoordonne() {
+		return coordonne;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public List<Case> getCaseList() {
+		return caseList;
+	}
 	
 }
