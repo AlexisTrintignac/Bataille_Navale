@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Grille {
 	
@@ -13,6 +16,7 @@ public class Grille {
 	// Y = colonne
 	
 	public Grille() {
+		this.bateaux = new ArrayList<>();
 		for (int i=0; i< this.nb_colonnes; i++) {
 			for (int j=0;j<this.nb_lignes; j++) {
 				this.grille.put(i+""+j, new Case(new Coordonne(i,j)));
@@ -31,6 +35,7 @@ public class Grille {
 	public void placerBateaux(Navire bateau, Case c) {
 		int getCaseX = c.getCoordonnee().getX();
 		int getCaseY = c.getCoordonnee().getY();
+		this.bateaux.add(bateau);
 		switch (bateau.direction) {
 		case NORD :
 			for(int i = 1; i<= bateau.taille; i++) {
@@ -57,7 +62,19 @@ public class Grille {
 		}
 	}
 	
-	public void tirer() {
-		
+	public void tirer(Case c) {
+		Iterator<Navire> it = this.bateaux.iterator();
+		 
+		while (it.hasNext()) {
+		       if(it.next().estDansCase(c)) {
+		    	   it.next().tirer(c);
+		    	   if(it.next().taille == 0) {
+		    		   this.bateaux.remove(c);
+		    	   }
+		    	   break;
+		       }
+		}
+		System.out.println("Dans l'eau !");
+
 	}
 }
