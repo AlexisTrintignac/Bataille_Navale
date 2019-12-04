@@ -1,9 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map.Entry;
 
 public class Navire {
 	
@@ -34,16 +29,16 @@ public class Navire {
 	}
 	
 	public Boolean estDansCase(Case c) {
-		if (this.direction == this.direction.SUD) {
+		if (this.direction == Direction.SUD) {
 			return estCaseDansNavireSud(c);
 		} else {
-			if (this.direction == this.direction.NORD) {
+			if (this.direction == Direction.NORD) {
 				return estCaseDansNavireNord(c);
 		} else {
-			if (this.direction == this.direction.OUEST) {
+			if (this.direction == Direction.OUEST) {
 				return estCaseDansNavireOuest(c);
 		} else {
-			if (this.direction == this.direction.EST) {
+			if (this.direction == Direction.EST) {
 				return estCaseDansNavireEst(c);
 			}
 			return false;

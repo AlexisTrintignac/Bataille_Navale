@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class Grille {
 	
@@ -20,8 +17,8 @@ public class Grille {
 	
 	public Grille() {
 		this.bateaux = new ArrayList<>();
-		for (int i=0; i< this.NB_COLONNES; i++) {
-			for (int j=0;j<this.NB_LIGNES; j++) {
+		for (int i=0; i< NB_COLONNES; i++) {
+			for (int j=0;j< NB_LIGNES; j++) {
 				this.grille.put(i+""+j, new Case(new Coordonne(i,j)));
 			}
 		}
@@ -35,7 +32,7 @@ public class Grille {
 		}
 	}
 	
-	public void placerBateaux(Navire bateau, Case c) {
+	public void placerBateaux(Navire bateau, Case c) throws Exception{
 		int getCaseX = c.getCoordonnee().getX();
 		int getCaseY = c.getCoordonnee().getY();
 		this.bateaux.add(bateau);
@@ -43,21 +40,45 @@ public class Grille {
 		case NORD :
 			for(int i = 1; i<= bateau.getTaille(); i++) {
 				Case value = this.grille.get(getCaseX+(-i)+""+getCaseY);
+				if(getCaseX <= 0 || getCaseX > NB_LIGNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
+				if(getCaseY <= 0 || getCaseY > NB_COLONNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
 				bateau.getCaseList().add(value);
 			}
 		case SUD :
 			for(int i = 1; i<= bateau.getTaille(); i++) {
 				Case value = this.grille.get(getCaseX+i+""+getCaseY);
+				if(getCaseX <= 0 || getCaseX > NB_LIGNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
+				if(getCaseY <= 0 || getCaseY > NB_COLONNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
 				bateau.getCaseList().add(value);
 			}
 		case OUEST :
 			for(int i = 1; i<= bateau.getTaille(); i++) {
 				Case value = this.grille.get(getCaseX+""+getCaseY+(-i));
+				if(getCaseX <= 0 || getCaseX > NB_LIGNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
+				if(getCaseY <= 0 || getCaseY > NB_COLONNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
 				bateau.getCaseList().add(value);
 			}
 		case EST :
 			for(int i = 1; i<= bateau.getTaille(); i++) {
 				Case value = this.grille.get(getCaseX+""+getCaseY+i);
+				if(getCaseX <= 0 || getCaseX > NB_LIGNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
+				if(getCaseY <= 0 || getCaseY > NB_COLONNES) {
+					throw new IllegalArgumentException("Emplacement incorrect");
+				}
 				bateau.getCaseList().add(value);
 			}
 		default:
@@ -74,12 +95,10 @@ public class Grille {
 				currentNavire.tirer(c);
 				if(currentNavire.getTaille() == 0) {
 					System.out.println("bateau coule !");
-		    		   this.bateaux.remove(currentNavire);
-		    	   }
-		    	   break;
+		    	  }
+		    	  break;
 			}
 		}
 		System.out.println("Dans l'eau !");
-
 	}
 }
